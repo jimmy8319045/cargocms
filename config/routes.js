@@ -99,6 +99,13 @@ module.exports.routes = {
   "/admin/:controller/:action/:id?": {},
   "/:controller/:action/:id?": {},
 
+  //----- SloganController -----
+   'get /api/slogan': 'admin/SloganController.find',
+   'get /api/slogan/:id': 'admin/SloganController.findOne',
+
+   'post /api/slogan': 'admin/SloganController.create',
+   'put /api/slogan/:id': 'admin/SloganController.update',
+   'delete /api/slogan/:id': 'admin/SloganController.destroy',
 
   /***************************************************************************
   *                                                                          *
