@@ -1,7 +1,7 @@
 require("../../bootstrap.test.js")
 describe.only('main login page test', () => {
   describe('get index title', () => {
-    it('should be get broser title of Login @watch', () => {
+    before('should be get broser title of Login @watch', () => {
       browser.url('http://localhost:1338/admin/login');
       expect(browser.getTitle()).to.equal('Login 2 | Unify - Responsive Website Template');
     });
@@ -53,7 +53,7 @@ describe.only('main login page test', () => {
       }
     });
 
-    it.skip('logout @watch', (done) => {
+    after('logout @watch', (done) => {
       try {
         //await browser.pause(1000);//must
         browser.url('http://localhost:1338/logout?url=/admin/login');
