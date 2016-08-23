@@ -1,7 +1,7 @@
 require("../../bootstrap.test.js")
 import {login, logout} from "../../util/e2eHelper.js"
 
-describe.only('test user', () => {
+describe('test user', () => {
   const userData = {
     username: 'usertest1',
     email: 'usertest1@gmail.com',
@@ -78,8 +78,27 @@ describe.only('test user', () => {
       const res = await User.find({where: {username: userData.username}});
       res.username.should.be.eq(userData.username);
       res.email.should.be.eq(userUpdate.email);
-
-      // browser.pause(5000);
+      done();
+    } catch (e) {
+      done(e);
+    }
+  });
+  it('delete @watch',async (done) => {
+    try {
+      //點擊修改
+      browser.url('/admin/#/admin/user');
+      browser.waitForExist('#ToolTables_main-table_2');
+      browser.setValue('[type=search]', userData.username)
+      .click('#main-table > tbody > tr.odd')
+      .click('#ToolTables_main-table_2');
+      browser.waitForExist('[class="btn btn-danger pull-left"]',1000);
+      //點擊刪除
+      browser.click('[class="btn btn-danger pull-left"]')
+      .click('#bot1-Msg1')
+      .waitForExist('[class="btn btn-danger pull-left"]',2000,true);
+      //檢查
+      const res = await User.find({where: {username: userData.username}});
+      (res === null).should.be.true;
       done();
     } catch (e) {
       done(e);
