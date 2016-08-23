@@ -14,3 +14,12 @@ package-production:
 restart-production:
 	- ssh jenkins@localhost cd ~/deploy/production && pm2 delete production
 	ssh jenkins@localhost  cd ~/deploy/production && NODE_ENV=production pm2 start -f app.js --name 'production'
+
+e2e-test-with-docker:
+	- docker run --name selenium-firefox -d -p 4444:4444 -p 5900:5900 selenium/standalone-firefox-debug:2.53.0
+	npm run test-e2e-docker
+
+preview:
+	- pm2 stop cargo-preview
+	- pm2 delete cargo-preview
+	pm2 start app.js --name cargo-preview

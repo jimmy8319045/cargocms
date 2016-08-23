@@ -1,27 +1,22 @@
-
 require("../bootstrap.test.js")
-describe('main page test', () => {
-  describe('get index title', () => {
-    it('should be get broser title of LFP @watch', () => {
-      browser.url('http://localhost:1338/');
-      expect(browser.getTitle()).to.equal('LFP: 香料香水實驗室，客製專屬香水');
+import {login} from "../util/e2eHelper.js"
 
-
-    });
-    it('login as admin @watch', () => {
-      browser.click('#login');
-      browser.setValue('#identifier', 'admin')
-      browser.setValue('#password', 'admin')
-      browser.click('#submit-button');
-      expect(browser.getTitle()).to.equal('LFP: 香料香水實驗室，客製專屬香水');
-
-      expect(browser.elements('#logout-link')!=null).to.equal(true);
-
-    });
-
-    it('logout @watch', () => {
-      browser.click('#logout-link');
-      expect(browser.elements('#login')!=null).to.equal(true);
-    });
-  });
+describe('test logout', () => {
+	before((done)=>{
+		try {
+			login("admin");
+			done();
+		} catch (e) {
+			done(e);
+		}
+	})
+	it('logout @watch', (done) => {
+		try {
+			browser.click('#logout-link');
+			browser.element('#logout-link').state.should.be.equal('failure');
+			done()
+		} catch (e) {
+			done(e);
+		}
+	});
 });
