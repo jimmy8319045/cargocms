@@ -1,7 +1,7 @@
 require("../../bootstrap.test.js")
 import {login, logout} from "../../util/e2eHelper.js"
 
-describe('test user', () => {
+describe.only('test user', () => {
   const userData = {
     username: 'usertest1',
     email: 'usertest1@gmail.com',
